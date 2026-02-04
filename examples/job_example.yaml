@@ -1,0 +1,19 @@
+site: "example_site"
+flow: "article_title_async"
+schema: "ExampleArticle@v1"
+input:
+  urls:
+    - "https://example.com/"
+policies:
+  concurrency: 20
+  per_domain_rps: 2
+  per_domain_burst: 3
+  timeout_s: 20
+  retry:
+    max_attempts: 4
+    retry_on_status: [429, 500, 502, 503, 504]
+sink:
+  type: "sqlite"
+  sqlite:
+    path: "./data/scraped.db"
+
